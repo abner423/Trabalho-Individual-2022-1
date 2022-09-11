@@ -45,4 +45,3 @@ class BookViewSet(ModelViewSet):
         data = serializer.data
 
         return Response(data, status=status.HTTP_200_OK)
-
