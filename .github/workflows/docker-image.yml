@@ -18,4 +18,4 @@ jobs:
       run: docker-compose up -d --build
     - name: Run Tests
       run: |
-        python ./library_back/manage.py test
+        docker exec trabalho-individual-2022-1_api_1 bash -c "python ./library_back/manage.py test"
