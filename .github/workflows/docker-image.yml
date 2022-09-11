@@ -43,4 +43,28 @@ jobs:
       run: docker-compose up -d --build 
     - name: Run Tests
       run: |
-        docker exec trabalho-individual-2022-1_api_1 bash -c "python ./manage.py test" 
+        docker exec trabalho-individual-2022-1_api_1 bash -c "python ./manage.py test"
+  lint: 
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Criando arquivo de variavel de ambiente
+        working-directory: ./library_back
+        run: |
+          echo POSTGRES_DB=library_db >> .env
+          echo POSTGRES_USER=postgres >> .env
+          echo POSTGRES_PASSWORD=password >> .env
+          echo POSTGRES_HOST=database >> .env
+          echo POSTGRES_PORT=5432 >> .env
+          cat .env
+      - name: Instalacao do lint
+        working-directory: ./
+        run: bash -c "pip install flake8"
+      - name: Executando lint para o backend
+        working-directory: ./
+        run: bash -c "flake8 --max-line-length=100 library_back"
+      - name: Executando lint para o frontend
+        working-directory: ./
+        run: bash -c "flake8 --max-line-length=100 library_front"
