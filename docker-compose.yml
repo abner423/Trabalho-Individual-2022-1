@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  app:
+    image: frontend:trabalho-final
+    build:
+      context: library_front
+      dockerfile: Dockerfile
+    volumes:
+      - './library_front:/library_front'
+      - '/library_front/node_modules/'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+  api:
+    image: backend:trabalho-final
+    build:
+      context: library_back
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_HOST: db
+    volumes:
+      - './library_back:/library_back'
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: library_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
