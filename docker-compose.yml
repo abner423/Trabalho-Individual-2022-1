@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  app:
-    image: frontend:trabalho-final
+  library_front:
+    image: library_front:trabalho-final
     build:
       context: library_front
       dockerfile: Dockerfile
@@ -51,9 +51,9 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     links:
-      - library_frontend
+      - library_front
     depends_on:
-      - library_frontend
+      - library_front
     networks:
       - library_network
 
