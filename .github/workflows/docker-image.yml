@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "feature/ci-docker" ]
+  pull_request:
+    branches: [ "feature/ci-docker" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build and run Docker Compose
+      run: docker-compose up -d --build
+    - name: Run Tests
+      run: |
+        python ./library_back/manage.py test
