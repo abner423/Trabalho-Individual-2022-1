@@ -11,6 +11,8 @@ services:
       - '/library_front/node_modules/'
     ports:
       - '3000:3000'
+    networks:
+      - library_network
     depends_on:
       - api
 
@@ -25,6 +27,8 @@ services:
       - './library_back:/library_back'
     ports:
       - '8000:8000'
+    networks:
+      - library_network
     depends_on:
       - db
 
@@ -36,6 +40,8 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - '5432:5432'
+    networks:
+      - library_network
   
   library_nginx:
     image: nginx:1.22.0-alpine
