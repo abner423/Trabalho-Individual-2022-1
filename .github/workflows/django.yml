@@ -34,3 +34,5 @@ jobs:
     - name: Run Tests
       run: |
         python ./library_back/manage.py test
+    - name: Super-Linter
+      uses: github/super-linter@v4.9.5
